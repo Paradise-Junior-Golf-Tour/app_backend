@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_misc_slots",
+  "info": {
+    "displayName": "Time Slot",
+    "icon": "golf-ball",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "time": {
+      "type": "datetime"
+    },
+    "users_permissions_users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tee_times",
+  "info": {
+    "singularName": "tee-time",
+    "pluralName": "tee-times",
+    "displayName": "Tee Times",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "event": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::event.event",
+      "inversedBy": "tee_time"
+    },
+    "Name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "tee_times"
+    },
+    "slot": {
+      "displayName": "slot",
+      "type": "component",
+      "repeatable": true,
+      "component": "misc.slot"
+    },
+    "fundraiser": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::fundraiser.fundraiser",
+      "mappedBy": "tee_time"
+    }
+  }
+}

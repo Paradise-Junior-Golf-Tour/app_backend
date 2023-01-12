@@ -1,0 +1,87 @@
+{
+  "kind": "collectionType",
+  "collectionName": "events",
+  "info": {
+    "singularName": "event",
+    "pluralName": "events",
+    "displayName": "Events",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "fee": {
+      "type": "decimal",
+      "required": true,
+      "default": 10,
+      "min": 0
+    },
+    "registration_open": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "transactions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::transaction.transaction",
+      "inversedBy": "events"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "slug": {
+      "type": "uid",
+      "required": true
+    },
+    "date_start": {
+      "type": "date",
+      "required": true,
+      "default": "2022-10-29"
+    },
+    "date_end": {
+      "type": "date",
+      "required": true,
+      "default": "2022-10-31"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "events"
+    },
+    "result": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::result.result",
+      "inversedBy": "event"
+    },
+    "tee_time": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::tee-time.tee-time",
+      "mappedBy": "event"
+    },
+    "announcement": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::announcement.announcement",
+      "inversedBy": "events"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_misc_users",
+  "info": {
+    "displayName": "user",
+    "icon": "user"
+  },
+  "options": {},
+  "attributes": {
+    "users_permissions_users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

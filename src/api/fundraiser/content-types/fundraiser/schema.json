@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fundraisers",
+  "info": {
+    "singularName": "fundraiser",
+    "pluralName": "fundraisers",
+    "displayName": "Fundraisers",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "tee_time": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::tee-time.tee-time",
+      "inversedBy": "fundraiser"
+    },
+    "transactions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::transaction.transaction",
+      "inversedBy": "fundraisers"
+    },
+    "users_permissions_users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "fundraisers"
+    }
+  }
+}

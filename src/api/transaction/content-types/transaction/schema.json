@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "transactions",
+  "info": {
+    "singularName": "transaction",
+    "pluralName": "transactions",
+    "displayName": "Transactions",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "events": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::event.event",
+      "mappedBy": "transactions"
+    },
+    "total": {
+      "type": "decimal"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "success": {
+      "type": "boolean",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Event Single",
+        "Event Foursome",
+        "Fundraiser Single",
+        "Fundraiser Single and Hole Sponsor",
+        "Fundraiser Foursome",
+        "Fundraiser Foursome and Hole Sponsor",
+        "Hole Sponsor"
+      ],
+      "required": true
+    },
+    "fundraisers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::fundraiser.fundraiser",
+      "mappedBy": "transactions"
+    }
+  }
+}

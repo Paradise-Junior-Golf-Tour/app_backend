@@ -144,13 +144,13 @@ module.exports = {
       return;
     }
 
-    ctx.response.status = 500;
-    ctx.response.body = {
-      token: jwt_decode(ctx.request.header.authorization),
-      data: null,
-      error: null,
-      events: null,
-    }
+    // ctx.response.status = 500;
+    // ctx.response.body = {
+    //   token: jwt_decode(ctx.request.header.authorization),
+    //   data: null,
+    //   error: null,
+    //   events: null,
+    // }
 
     // Create a new transaction
     const transactionData = {
@@ -173,6 +173,8 @@ module.exports = {
       fields: ['id', 'Fee']
     })
 
+    console.log('Events Before', events)
+
     // Create transaction total.
     transactionData.total = events.reduce((accumulator, object) => {
       return accumulator + object.fee;
@@ -194,8 +196,12 @@ module.exports = {
 
     // Update new transaction after payment resolves.
     console.log('Events After', events)
-    ctx.response.body.events = events
-    ctx.response.body.data = transactionNew
+    // ctx.response.body.events = events
+    // ctx.response.body.data = transactionNew
+    ctx.response.body = {
+      events,
+      transactionNew
+    }
     ctx.response.status = 200;
 
     if (transactionNew && events) {

@@ -58,7 +58,7 @@ module.exports = {
         slug: slug,
         description: eventDescription,
       },
-      fields: ['id', 'Name', 'Slug'] // Fields to be returned
+      fields: ['id', 'name', 'slug'] // Fields to be returned
     }).then(res => {
       console.log("[Event API] event res", res)
       event.id = res.id

@@ -82,6 +82,12 @@
       "relation": "manyToOne",
       "target": "api::announcement.announcement",
       "inversedBy": "events"
+    },
+    "max_users": {
+      "type": "integer"
+    },
+    "date": {
+      "type": "date"
     }
   }
 }

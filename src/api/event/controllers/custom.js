@@ -41,7 +41,7 @@ module.exports = {
 
   // CREATE NEW EVENT AND TEE TIME
   async createNew(ctx) {
-    const { name, description, fee, date, max_users } = ctx.request.body.data;
+    const { name, description, fee, date, max_users, image } = ctx.request.body.data;
     const apiEvent = "api::event.event";
 
     console.log("EVENT NEW START PAYLOAD", { name, description });
@@ -68,6 +68,7 @@ module.exports = {
           fee,
           date,
           max_users,
+          image
         },
         fields: ["id", "name", "slug"], // Fields to be returned
       })

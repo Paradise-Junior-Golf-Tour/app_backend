@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tee_time_slots",
+  "info": {
+    "singularName": "tee-time-slot",
+    "pluralName": "tee-time-slots",
+    "displayName": "Tee Time Slot"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "time": {
+      "type": "time"
+    },
+    "users_permissions_users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "tee_time_slots"
+    }
+  }
+}

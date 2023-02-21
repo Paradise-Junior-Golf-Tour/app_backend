@@ -22,13 +22,32 @@ module.exports = {
 
   async findUserEvents(ctx) {
     const { identifier } = ctx.request.query;
-    console.log({ id: identifier, ctx });
+    console.log("findUserEvents", { id: identifier, ctx });
 
     const event = await strapi.entityService.findOne(
       "api::event.event",
       parseInt(identifier),
       {
-        populate: ["users"],
+        populate: ["*"],
+        fields: ["*"],
+      }
+    );
+
+    console.log(`[Event API] findUserEvents`, event);
+
+    ctx.response.body = event;
+    ctx.response.status = 200;
+  },
+
+  async findEventDetails(ctx) {
+    const { id } = ctx.request.query;
+    console.log({ id: id, ctx });
+
+    const event = await strapi.entityService.findOne(
+      "api::event.event",
+      parseInt(id),
+      {
+        populate: ["image", "users", "transactions", "tee_time_slots.users_permissions_users"],
         fields: ["*"],
       }
     );
@@ -41,7 +60,8 @@ module.exports = {
 
   // CREATE NEW EVENT AND TEE TIME
   async createNew(ctx) {
-    const { name, description, fee, date, max_users, image } = ctx.request.body.data;
+    const { name, description, fee, date, max_users, image } =
+      ctx.request.body.data;
     const apiEvent = "api::event.event";
 
     console.log("EVENT NEW START PAYLOAD", { name, description });
@@ -68,7 +88,7 @@ module.exports = {
           fee,
           date,
           max_users,
-          image
+          image,
         },
         fields: ["id", "name", "slug"], // Fields to be returned
       })

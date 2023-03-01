@@ -151,6 +151,22 @@
       "relation": "manyToMany",
       "target": "api::tee-time-slot.tee-time-slot",
       "inversedBy": "users_permissions_users"
+    },
+    "users_permissions_users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "users"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "users_permissions_users"
+    },
+    "family_account": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

@@ -3,12 +3,9 @@ const jwt_decode = require("jwt-decode");
 module.exports = {
   // default res status is 404!!!!
 
-  // FETCH ALL EVENTS AND THEIR CORRESPONDING TEE TIMES/PARTICIPANTS
   async findAll(ctx) {
-    // called by GET /hello
     ctx.response.status = 200; // we could also send a JSON
     const all = await strapi.entityService.findMany("api::event.event", {
-      // populate: ['participants', 'tee_time.time_slots.tee-time', '  tee_time.time_slots.participants'],
       populate: ["transactions", "users", "tee-time"],
       fields: ["*"],
     });
@@ -47,7 +44,12 @@ module.exports = {
       "api::event.event",
       parseInt(id),
       {
-        populate: ["image", "users", "transactions", "tee_time_slots.users_permissions_users"],
+        populate: [
+          "image",
+          "users",
+          "transactions",
+          "tee_time_slots.users_permissions_users",
+        ],
         fields: ["*"],
       }
     );
@@ -67,10 +69,6 @@ module.exports = {
     console.log("EVENT NEW START PAYLOAD", { name, description });
 
     let event = {
-      id: null,
-      error: null,
-    };
-    let teeTime = {
       id: null,
       error: null,
     };
@@ -106,55 +104,6 @@ module.exports = {
         ctx.response.body = err;
         ctx.response.status = 500;
       });
-
-    if (event) {
-      await strapi.entityService
-        .create("api::tee-time.tee-time", {
-          data: {
-            Name: name,
-            event: [event.id],
-            publishedAt: new Date(),
-          },
-        })
-        .then((res) => {
-          teeTime.id = res.id;
-        })
-        .catch((err) => {
-          teeTime.error = err;
-        });
-    }
-
-    // if (!event.id) {
-    //   ctx.response.status = event.error.name === "ValidationError" ? 409 : 500;
-    //   ctx.response.body = {
-    //     message: `Failed to create the event ${eventName} and its corresponding tee time. ${event.error.name === "ValidationError" ? "This event already exists." : "An unspecified error has occurred."}`,
-    //     error: event.error
-    //   };
-    // }
-
-    // if (event.id && teeTime.id) {
-    //   ctx.response.status = 201;
-    //   ctx.response.body = {
-    //     message: `Successfully created the event ${eventName} and its corresponding tee time.`,
-    //     data: {
-    //       event: {
-    //         name: eventName,
-    //         id: event.id
-    //       },
-    //       teeTime: {
-    //         id: teeTime.id
-    //       }
-    //     }
-    //   };
-    // }
-
-    // if (event.id && !teeTime.id) {
-    //   ctx.response.status = 500;
-    //   ctx.response.body = {
-    //     message: `Successfully created event ${eventName} (id: ${event.id}) but failed to create the corresponding tee time. Either manually create this event in the Admin Dashboard or contact your developer.`,
-    //     error: teeTime.error
-    //   };
-    // }
   },
 
   // Rgister for events (create transaction, tee time, and )
@@ -181,6 +130,12 @@ module.exports = {
       return;
     }
 
+    console.log('[Events Service] Register', {
+      payloadEvents,
+      payloadType,
+      token
+    })
+
     // ctx.response.status = 500;
     // ctx.response.body = {
     //   token: jwt_decode(ctx.request.header.authorization),
@@ -200,7 +155,6 @@ module.exports = {
 
     // Get and update all events
     const events = await strapi.entityService.findMany("api::event.event", {
-      // populate: ['participants', 'tee_time.time_slots.tee-time', '  tee_time.time_slots.participants'],
       filters: {
         id: {
           $in: payloadEvents,
@@ -210,7 +164,7 @@ module.exports = {
       fields: ["id", "Fee"],
     });
 
-    console.log("Events Before", events);
+    // console.log("Events Before", events);
 
     // Create transaction total.
     transactionData.total = events.reduce((accumulator, object) => {
@@ -235,7 +189,7 @@ module.exports = {
     });
 
     // Update new transaction after payment resolves.
-    console.log("Events After", events);
+    // console.log("Events After", events);
     // ctx.response.body.events = events
     // ctx.response.body.data = transactionNew
     ctx.response.body = {

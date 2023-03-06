@@ -1,3 +1,12 @@
+Client = require('square');
+
+const checkout = () => {
+  const { paymentsApi } = new Client({
+    accessToken: process.env.SQUARE_ACCESS_TOKEN,
+    environment: 'sandbox'
+  });
+}
+
 module.exports = {
   // default res status is 404!!!!
   async findByEvent(ctx) {
@@ -34,4 +43,6 @@ module.exports = {
     })
   },
 };
+
+
 

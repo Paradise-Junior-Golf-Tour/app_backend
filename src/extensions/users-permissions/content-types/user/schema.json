@@ -74,12 +74,6 @@
       "target": "api::event.event",
       "mappedBy": "users"
     },
-    "tee_times": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::tee-time.tee-time",
-      "inversedBy": "users"
-    },
     "image": {
       "type": "media",
       "multiple": false,

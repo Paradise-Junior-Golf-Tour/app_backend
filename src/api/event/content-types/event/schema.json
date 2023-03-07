@@ -71,12 +71,6 @@
       "target": "api::result.result",
       "inversedBy": "event"
     },
-    "tee_time": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::tee-time.tee-time",
-      "mappedBy": "event"
-    },
     "announcement": {
       "type": "relation",
       "relation": "manyToOne",
@@ -99,6 +93,14 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::tee-time-slot.tee-time-slot"
+    },
+    "gallery": {
+      "allowedTypes": [
+        "images",
+        "videos"
+      ],
+      "type": "media",
+      "multiple": true
     }
   }
 }

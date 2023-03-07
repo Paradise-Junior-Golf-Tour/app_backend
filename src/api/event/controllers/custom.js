@@ -60,6 +60,22 @@ module.exports = {
     ctx.response.status = 200;
   },
 
+  async findEventGallery(ctx) {
+    const { id } = ctx.request.query;
+
+    const eventGalllery = await strapi.entityService.findOne(
+      "api::event.event",
+      parseInt(id),
+      {
+        populate: ["gallery"],
+        fields: "id"
+      }
+    );
+
+    ctx.response.body = eventGalllery;
+    ctx.response.status = 200;
+  },
+
   // CREATE NEW EVENT AND TEE TIME
   async createNew(ctx) {
     const { name, description, fee, date, max_users, image } =
@@ -130,11 +146,11 @@ module.exports = {
       return;
     }
 
-    console.log('[Events Service] Register', {
+    console.log("[Events Service] Register", {
       payloadEvents,
       payloadType,
-      token
-    })
+      token,
+    });
 
     // ctx.response.status = 500;
     // ctx.response.body = {

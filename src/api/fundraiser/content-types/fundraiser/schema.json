@@ -15,12 +15,6 @@
     "Name": {
       "type": "string"
     },
-    "tee_time": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::tee-time.tee-time",
-      "inversedBy": "fundraiser"
-    },
     "transactions": {
       "type": "relation",
       "relation": "manyToMany",

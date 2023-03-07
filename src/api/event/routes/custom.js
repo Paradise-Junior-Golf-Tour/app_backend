@@ -27,6 +27,12 @@ module.exports = {
     },
     {
       // Path defined with a regular expression
+      method: "GET",
+      path: "/events/gallery", // Only match when the URL parameter is composed of lowercase letters
+      handler: "custom.findEventGallery",
+    },
+    {
+      // Path defined with a regular expression
       method: "POST",
       path: "/events/register", // Only match when the URL parameter is composed of lowercase letters
       handler: "custom.register",

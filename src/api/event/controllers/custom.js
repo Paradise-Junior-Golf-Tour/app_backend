@@ -253,7 +253,7 @@ module.exports = {
         },
       },
       populate: ["transactions", "users"],
-      fields: ["id", "Fee"],
+      fields: ["id", "fee"],
     });
 
     // console.log("Events Before", events);

@@ -95,12 +95,33 @@
       "target": "api::tee-time-slot.tee-time-slot"
     },
     "gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "videos"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
+    },
+    "address_1": {
+      "type": "string",
+      "required": true
+    },
+    "address_2": {
+      "type": "string",
+      "required": false
+    },
+    "address_city": {
+      "type": "string",
+      "required": true
+    },
+    "address_state": {
+      "type": "string",
+      "required": true
+    },
+    "address_zip": {
+      "type": "string",
+      "required": true
     }
   }
 }

@@ -1,44 +1,40 @@
 module.exports = {
   routes: [
     {
-      // Path defined with a regular expression
       method: "GET",
-      path: "/events/all", // Only match when the URL parameter is composed of lowercase letters
-      handler: "custom.findAll",
+      path: "/events/all",
+      handler: "custom.eventAll",
     },
     {
-      // Path defined with a regular expression
       method: "POST",
-      path: "/events/new", // Only match when the URL parameter is composed of lowercase letters
-      handler: "custom.createNew",
+      path: "/events/new",
+      handler: "custom.eventNew",
     },
     {
-      // Path defined with a regular expression
-      // MAY NOT BE IN USE
+      method: "PATCH",
+      path: "/events/new",
+      handler: "custom.eventNew",
+    },
+    {
+      // TODO: Check and see if this is even in use anymore and clean up if not.
       method: "GET",
-      path: "/events/one", // Only match when the URL parameter is composed of lowercase letters
-      handler: "custom.findUserEvents",
+      path: "/events/one",
+      handler: "custom.eventsAllByUser",
     },
     {
-      // Path defined with a regular expression
       method: "GET",
-      path: "/events/details", // Only match when the URL parameter is composed of lowercase letters
-      handler: "custom.findEventDetails",
+      path: "/events/details",
+      handler: "custom.eventSingleDetails",
     },
     {
-      // Path defined with a regular expression
       method: "GET",
-      path: "/events/gallery", // Only match when the URL parameter is composed of lowercase letters
-      handler: "custom.findEventGallery",
+      path: "/events/gallery",
+      handler: "custom.eventImageGallery",
     },
     {
-      // Path defined with a regular expression
       method: "POST",
-      path: "/events/register", // Only match when the URL parameter is composed of lowercase letters
-      handler: "custom.register",
-      // config: {
-      //   policies: ['plugin::users-permissions.isAuthenticated']
-      // }
+      path: "/events/register",
+      handler: "custom.eventRegister",
     },
   ],
 };

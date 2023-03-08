@@ -3,9 +3,10 @@ const jwt_decode = require("jwt-decode");
 module.exports = {
   // default res status is 404!!!!
 
-  async findAll(ctx) {
+  async eventAll(ctx) {
     ctx.response.status = 200; // we could also send a JSON
     const all = await strapi.entityService.findMany("api::event.event", {
+      sort: { date: 'desc' },
       populate: ["transactions", "users", "tee-time"],
       fields: ["*"],
     });
@@ -17,9 +18,9 @@ module.exports = {
     };
   },
 
-  async findUserEvents(ctx) {
+  async eventsAllByUser(ctx) {
     const { identifier } = ctx.request.query;
-    console.log("findUserEvents", { id: identifier, ctx });
+    console.log("eventsAllByUser", { id: identifier, ctx });
 
     const event = await strapi.entityService.findOne(
       "api::event.event",
@@ -30,13 +31,13 @@ module.exports = {
       }
     );
 
-    console.log(`[Event API] findUserEvents`, event);
+    console.log(`[Event API] eventsAllByUser`, event);
 
     ctx.response.body = event;
     ctx.response.status = 200;
   },
 
-  async findEventDetails(ctx) {
+  async eventSingleDetails(ctx) {
     const { id } = ctx.request.query;
     console.log({ id: id, ctx });
 
@@ -54,13 +55,13 @@ module.exports = {
       }
     );
 
-    console.log(`[Event API] findUserEvents`, event);
+    console.log(`[Event API] eventsAllByUser`, event);
 
     ctx.response.body = event;
     ctx.response.status = 200;
   },
 
-  async findEventGallery(ctx) {
+  async eventImageGallery(ctx) {
     const { id } = ctx.request.query;
 
     const eventGalllery = await strapi.entityService.findOne(
@@ -68,7 +69,7 @@ module.exports = {
       parseInt(id),
       {
         populate: ["gallery"],
-        fields: "id"
+        fields: "id",
       }
     );
 
@@ -76,13 +77,26 @@ module.exports = {
     ctx.response.status = 200;
   },
 
-  // CREATE NEW EVENT AND TEE TIME
-  async createNew(ctx) {
-    const { name, description, fee, date, max_users, image } =
-      ctx.request.body.data;
+  // Create a new event.
+  async eventNew(ctx) {
+    const {
+      name,
+      description,
+      fee,
+      date,
+      max_users,
+      image,
+      registration_start_date,
+      registration_end_date,
+      address_1,
+      address_2,
+      address_city,
+      address_state,
+      address_zip,
+    } = ctx.request.body.data;
     const apiEvent = "api::event.event";
 
-    console.log("EVENT NEW START PAYLOAD", { name, description });
+    console.log("EVENT NEW START PAYLOAD", { name, description, ctx });
 
     let event = {
       id: null,
@@ -103,6 +117,68 @@ module.exports = {
           date,
           max_users,
           image,
+          registration_end_date,
+          registration_start_date,
+          address_1,
+          address_2,
+          address_city,
+          address_state,
+          address_zip,
+        },
+        fields: ["id", "name", "slug"], // Fields to be returned
+      })
+      .then((res) => {
+        console.log("[Event API] event res", res);
+        event.id = res.id;
+        ctx.response.body = {
+          data: res,
+        };
+        ctx.response.status = 200;
+      })
+      .catch((err) => {
+        console.log("[Event API] event err", err);
+        event.error = err;
+        ctx.response.body = err;
+        ctx.response.status = 500;
+      });
+  },
+
+  async eventUpdate(ctx) {
+    const {
+      name,
+      description,
+      fee,
+      date,
+      max_users,
+      image,
+      registration_start_date,
+      registration_end_date,
+    } = ctx.request.body.data;
+    const apiEvent = "api::event.event";
+
+    console.log("EVENT NEW START PAYLOAD", { name, description, ctx });
+
+    let event = {
+      id: null,
+      error: null,
+    };
+
+    const slug = name.toLowerCase().replaceAll(/[^a-z0-9]+/gi, "-");
+    console.log("[Event API] slug", slug);
+
+    await strapi.entityService
+      .create(apiEvent, {
+        data: {
+          publishedAt: new Date(),
+          slug,
+          name,
+          description,
+          fee,
+          date,
+          max_users,
+          image,
+          registration_end_date,
+          registration_start_date,
         },
         fields: ["id", "name", "slug"], // Fields to be returned
       })
@@ -123,7 +199,7 @@ module.exports = {
   },
 
   // Rgister for events (create transaction, tee time, and )
-  async register(ctx) {
+  async eventRegister(ctx) {
     const token = jwt_decode(ctx.request.header.authorization);
     const payloadEvents = ctx.request.body.events; // Seed Data
     const payloadType = ctx.request.body.type;

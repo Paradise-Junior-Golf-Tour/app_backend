@@ -7,14 +7,14 @@ module.exports = {
     // },
     // TODO: Move this to the events service
     {
-      method: 'GET',
-      path: '/users/event',
-      handler: 'custom.findByEvent',
+      method: "GET",
+      path: "/users/event",
+      handler: "custom.findByEvent",
     },
     {
-      method: 'GET',
-      path: '/users/events',
-      handler: 'custom.findUserEvents',
-    }
-  ]
-}
+      method: "GET",
+      path: "/users/events",
+      handler: "custom.eventsAllByUser",
+    },
+  ],
+};

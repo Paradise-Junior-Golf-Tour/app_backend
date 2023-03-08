@@ -1,8 +1,7 @@
 const jwt_decode = require("jwt-decode");
 
 module.exports = {
-
-  async findUserEvents(ctx) {
+  async eventsAllByUser(ctx) {
     const token = jwt_decode(ctx.request.header.authorization);
     await strapi
       .query("plugin::users-permissions.user")

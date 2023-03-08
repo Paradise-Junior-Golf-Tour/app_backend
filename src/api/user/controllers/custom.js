@@ -21,6 +21,29 @@ module.exports = {
       });
   },
 
+  async userRelations(ctx) {
+    const token = jwt_decode(ctx.request.header.authorization);
+    await strapi
+      .query("plugin::users-permissions.user")
+      .findOne({
+        where: {
+          id: token.id,
+        },
+        populate: ["events", "users_permissions_users"],
+      })
+      .then((res) => {
+        console.log("[User API] find one res:", res);
+        ctx.response.body = {
+          events: res.events,
+          users: res.users_permissions_users,
+        };
+        ctx.response.status = 200;
+      })
+      .catch((err) => {
+        console.log("[User API] find one err:", err);
+      });
+  },
+
   async findByEvent(ctx) {
     const { id } = ctx.request.query;
     console.log(id);

@@ -4,7 +4,7 @@
   "info": {
     "singularName": "fundraiser",
     "pluralName": "fundraisers",
-    "displayName": "Fundraisers",
+    "displayName": "Fundraiser",
     "description": ""
   },
   "options": {
@@ -12,7 +12,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Name": {
+    "name": {
       "type": "string"
     },
     "transactions": {

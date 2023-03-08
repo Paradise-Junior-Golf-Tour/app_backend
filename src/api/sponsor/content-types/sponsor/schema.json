@@ -4,7 +4,7 @@
   "info": {
     "singularName": "sponsor",
     "pluralName": "sponsors",
-    "displayName": "Sponsors",
+    "displayName": "Sponsor",
     "description": ""
   },
   "options": {
@@ -24,6 +24,9 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "link": {
+      "type": "string"
     }
   }
 }

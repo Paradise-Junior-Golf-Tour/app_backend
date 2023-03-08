@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "age_brackets",
+  "info": {
+    "singularName": "age-bracket",
+    "pluralName": "age-brackets",
+    "displayName": "Age Bracket",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "bracket": {
+      "type": "enumeration",
+      "enum": [
+        "Boys 13 - 14",
+        "Boys 15 -16",
+        "Boys 17 - 18 ",
+        "College Men",
+        "Girls 13 - 14",
+        "Girls 15 -16",
+        "Girls 17 - 18 ",
+        "College Women"
+      ]
+    }
+  }
+}

@@ -140,12 +140,6 @@
       "target": "api::result.result",
       "inversedBy": "users"
     },
-    "tee_time_slots": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::tee-time-slot.tee-time-slot",
-      "inversedBy": "users_permissions_users"
-    },
     "users_permissions_users": {
       "type": "relation",
       "relation": "manyToMany",

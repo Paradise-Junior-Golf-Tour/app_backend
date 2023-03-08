@@ -16,5 +16,10 @@ module.exports = {
       path: "/users/events",
       handler: "custom.eventsAllByUser",
     },
+    {
+      method: "GET",
+      path: "/users/details",
+      handler: "custom.userRelations",
+    },
   ],
 };

@@ -93,10 +93,9 @@ module.exports = {
       address_city,
       address_state,
       address_zip,
+      start
     } = ctx.request.body.data;
     const apiEvent = "api::event.event";
-
-    console.log("EVENT NEW START PAYLOAD", { name, description, ctx });
 
     let event = {
       id: null,
@@ -104,7 +103,6 @@ module.exports = {
     };
 
     const slug = name.toLowerCase().replaceAll(/[^a-z0-9]+/gi, "-");
-    console.log("[Event API] slug", slug);
 
     await strapi.entityService
       .create(apiEvent, {
@@ -124,11 +122,11 @@ module.exports = {
           address_city,
           address_state,
           address_zip,
+          start
         },
         fields: ["id", "name", "slug"], // Fields to be returned
       })
       .then((res) => {
-        console.log("[Event API] event res", res);
         event.id = res.id;
         ctx.response.body = {
           data: res,
@@ -136,7 +134,6 @@ module.exports = {
         ctx.response.status = 200;
       })
       .catch((err) => {
-        console.log("[Event API] event err", err);
         event.error = err;
         ctx.response.body = err;
         ctx.response.status = 500;
@@ -155,8 +152,6 @@ module.exports = {
       registration_end_date,
     } = ctx.request.body.data;
     const apiEvent = "api::event.event";
-
-    console.log("EVENT NEW START PAYLOAD", { name, description, ctx });
 
     let event = {
       id: null,

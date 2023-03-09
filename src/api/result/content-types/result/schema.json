@@ -18,11 +18,11 @@
       "target": "api::event.event",
       "mappedBy": "result"
     },
-    "users": {
+    "user": {
       "type": "relation",
-      "relation": "manyToMany",
+      "relation": "oneToOne",
       "target": "plugin::users-permissions.user",
-      "mappedBy": "results"
+      "inversedBy": "result"
     },
     "age_bracket": {
       "type": "relation",

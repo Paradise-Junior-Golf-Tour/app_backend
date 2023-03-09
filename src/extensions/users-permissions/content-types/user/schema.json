@@ -134,12 +134,6 @@
       "target": "api::fundraiser.fundraiser",
       "mappedBy": "users_permissions_users"
     },
-    "results": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::result.result",
-      "inversedBy": "users"
-    },
     "users_permissions_users": {
       "type": "relation",
       "relation": "manyToMany",
@@ -155,6 +149,12 @@
     "family_account": {
       "type": "boolean",
       "default": false
+    },
+    "result": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::result.result",
+      "inversedBy": "user"
     }
   }
 }

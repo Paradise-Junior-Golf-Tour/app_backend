@@ -114,8 +114,7 @@
       "required": true
     },
     "start": {
-      "type": "time",
-      "required": true
+      "type": "string"
     }
   }
 }

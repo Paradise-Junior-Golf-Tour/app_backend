@@ -31,6 +31,9 @@
     },
     "score": {
       "type": "integer"
+    },
+    "place": {
+      "type": "integer"
     }
   }
 }

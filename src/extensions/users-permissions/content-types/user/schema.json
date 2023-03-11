@@ -154,7 +154,7 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::result.result",
-      "inversedBy": "user"
+      "mappedBy": "user"
     }
   }
 }
